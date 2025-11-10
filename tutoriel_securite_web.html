@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sécurité des Applications Web | Css Manager</title>
+    <style>
+        /* --- CSS GLOBAL --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.7;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            overflow-x: auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+        }
+
+        .toc {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+
+        .toc h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin-bottom: 10px;
+        }
+
+        .toc a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toc a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+        .section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            border-left: 5px solid #764ba2;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-number {
+            background: #764ba2;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 25px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        code {
+            background: #2d2d2d;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+        }
+
+        .tip {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .tip strong {
+            color: #1565C0;
+        }
+
+        .warning {
+            background: #fff3e0;
+            border-left: 4px solid #FF9800;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .warning strong {
+            color: #E65100;
+        }
+
+        .note {
+            background: #e8f5e8;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .note strong {
+            color: #2E7D32;
+        }
+
+        .exercise {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .exercise h3 {
+            color: #ff9800;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px dashed #ccc;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .subtitle {
+                font-size: 1rem;
+            }
+            .toc {
+                padding: 15px;
+            }
+            .section {
+                padding: 20px;
+            }
+            pre {
+                font-size: 0.85rem;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔒 Sécurité des Applications Web</h1>
+            <p class="subtitle">Bonnes Pratiques pour Développeurs Débutants et Intermédiaires</p>
+        </header>
+
+        <div class="toc">
+            <h2>📋 Sommaire</h2>
+            <ul>
+                <li><a href="#intro"><span class="section-number">1</span> Introduction à la Sécurité Web</a></li>
+                <li><a href="#principes"><span class="section-number">2</span> Principes de Base</a></li>
+                <li><a href="#vulnerabilites"><span class="section-number">3</span> Vulnérabilités Courantes (OWASP Top 10)</a></li>
+                <li><a href="#bonnes_pratiques"><span class="section-number">4</span> Bonnes Pratiques de Développement</a></li>
+                <li><a href="#php"><span class="section-number">5</span> Sécurité en PHP (mysqli, PDO)</a></li>
+                <li><a href="#javascript"><span class="section-number">6</span> Sécurité en JavaScript (DOM)</a></li>
+                <li><a href="#exemples"><span class="section-number">7</span> Exemples Concrets de Code Sécurisé</a></li>
+                <li><a href="#exercices"><span class="section-number">8</span> Exercices Pratiques</a></li>
+            </ul>
+        </div>
+
+        <div class="section" id="intro">
+            <h2><span class="section-number">1</span> 📘 Introduction à la Sécurité Web</h2>
+            <p>La **sécurité des applications web** est une **compétence essentielle** pour tout développeur. Une application mal sécurisée peut être victime de :</p>
+            <ul>
+                <li>Vol de données (identifiants, mots de passe, informations bancaires).</li>
+                <li>Injection de code malveillant.</li>
+                <li>Atteinte à la réputation de l'entreprise.</li>
+                <li>Sanctions légales (RGPD).</li>
+            </ul>
+            <div class="tip">
+                <strong>💡 Objectif :</strong> Apprendre à **concevoir** et **développer** des applications **résistantes aux attaques**.
+            </div>
+        </div>
+
+        <div class="section" id="principes">
+            <h2><span class="section-number">2</span> 🧠 Principes de Base</h2>
+            <p>Les principes fondamentaux de la sécurité sont :</p>
+            <ul>
+                <li><strong>Confidentialité</strong> : Seules les personnes autorisées peuvent accéder aux données.</li>
+                <li><strong>Intégrité</strong> : Les données ne peuvent être modifiées par des personnes non autorisées.</li>
+                <li><strong>Disponibilité</strong> : Le service est accessible aux utilisateurs autorisés quand ils en ont besoin.</li>
+            </ul>
+        </div>
+
+        <div class="section" id="vulnerabilites">
+            <h2><span class="section-number">3</span> 🚨 Vulnérabilités Courantes (OWASP Top 10)</h2>
+            <p>L'OWASP (Open Web Application Security Project) publie une liste des 10 principales vulnérabilités :</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Classement</th>
+                        <th>Nom</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Injection</td>
+                        <td>Données non fiables sont envoyées à un interpréteur (ex: <strong>injection SQL</strong>).</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Failles d'authentification</td>
+                        <td>Problèmes dans la gestion des sessions, des mots de passe.</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Exposition de données sensibles</td>
+                        <td>Données non chiffrées ou mal protégées.</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>XML External Entities (XXE)</td>
+                        <td>Attaques par entités XML externes.</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Broken Access Control</td>
+                        <td>Utilisateurs accèdent à des ressources non autorisées.</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Security Misconfiguration</td>
+                        <td>Paramètres par défaut ou erreurs de configuration.</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Cross-Site Scripting (XSS)</td>
+                        <td>Injection de scripts dans la page (côté client).</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Insecure Deserialization</td>
+                        <td>Problèmes lors de la conversion d'objets en chaînes et vice-versa.</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>Using Components with Known Vulnerabilities</td>
+                        <td>Utilisation de bibliothèques ou frameworks obsolètes.</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>Insufficient Logging & Monitoring</td>
+                        <td>Manque de journalisation pour détecter les attaques.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section" id="bonnes_pratiques">
+            <h2><span class="section-number">4</span> ✅ Bonnes Pratiques de Développement</h2>
+            <ul>
+                <li><strong>Valider et filtrer</strong> toutes les données entrantes (formulaire, URL, cookies).</li>
+                <li><strong>Utiliser des requêtes préparées</strong> (mysqli/PDO) pour éviter les injections SQL.</li>
+                <li><strong>Échapper les données</strong> sortantes (affichage dans HTML) avec <b>htmlspecialchars()</b>.</li>
+                <li><strong>Utiliser des sessions sécurisées</strong> (jeton CSRF, expiration).</li>
+                <li><strong>Ne jamais stocker de mot de passe en clair</strong> (utiliser <b>password_hash()</b> et <b>password_verify()</b>).</li>
+                <li><strong>Ne jamais exposer de données sensibles</strong> dans le code source ou les logs.</li>
+                <li><strong>Mettre à jour régulièrement</strong> les bibliothèques et frameworks utilisés.</li>
+                <li><strong>Journaliser les actions importantes</strong> (connexions, erreurs, modifications).</li>
+            </ul>
+        </div>
+
+        <div class="section" id="php">
+            <h2><span class="section-number">5</span> 🐘 Sécurité en PHP (mysqli, PDO)</h2>
+
+            <h3>🔒 Injection SQL</h3>
+            <div class="tip">
+                <strong>✅ Solution : Requêtes préparées</strong>
+            </div>
+            <pre><code>// --- MAUVAIS ---
+$sql = "SELECT * FROM users WHERE email = '".$_POST['email']."'"; // ❌ DANGEREUX
+$result = mysqli_query($conn, $sql);
+
+// --- BON AVEC MYSQLI ---
+$email = $_POST['email'];
+$stmt = $conn->prepare("SELECT * FROM users WHERE email = ?"); // ? = placeholder
+$stmt->bind_param("s", $email); // "s" = string
+$stmt->execute();
+$result = $stmt->get_result();
+
+// --- BON AVEC PDO ---
+$stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
+$stmt->bindParam(':email', $email);
+$stmt->execute();
+$result = $stmt->fetchAll();</code></pre>
+
+            <h3>🛡️ XSS (Cross-Site Scripting)</h3>
+            <div class="tip">
+                <strong>✅ Solution : Échappement des sorties HTML</strong>
+            </div>
+            <pre><code>// --- MAUVAIS ---
+echo "Bonjour " . $_POST['nom']; // ❌ Si l'utilisateur entre '<b> " script >" alert('XSS')</b> " / script"'
+
+// --- BON ---
+echo "Bonjour " . htmlspecialchars($_POST['nom']); // ✅ Échappe les caractères spéciaux</code></pre>
+
+            <h3>🔐 Authentification</h3>
+            <pre><code>// --- Stocker le mot de passe ---
+$motDePasse = $_POST['password'];
+$motDePasseHashe = password_hash($motDePasse, PASSWORD_DEFAULT);
+
+// --- Vérifier le mot de passe ---
+$motDePasseSaisi = $_POST['password'];
+if (password_verify($motDePasseSaisi, $motDePasseHashe)) {
+    // Connexion réussie
+}</code></pre>
+        </div>
+
+        <div class="section" id="javascript">
+            <h2><span class="section-number">6</span> 🌐 Sécurité en JavaScript (DOM)</h2>
+
+            <h3>🛡️ XSS via le DOM</h3>
+            <div class="tip">
+                <strong>✅ Solution : Ne jamais injecter du HTML brut</strong>
+            </div>
+            <pre><code>// --- MAUVAIS ---
+let userInput = '<b>alert("XSS")</b>';
+document.getElementById('output').innerHTML = userInput; // ❌ DANGEREUX
+
+// --- BON ---
+document.getElementById('output').textContent = userInput; // ✅ Affiche le HTML comme du texte</code></pre>
+
+            <h3>🔒 Gestion des Tokens (CSRF)</h3>
+            <p>Utilisez des tokens CSRF pour valider les formulaires.
+
+                C'est comme un **mot de passe unique** pour **chaque formulaire ou requête**.
+            </p>
+            <pre><code><!-- Généré côté PHP -->
+<input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+------- STEPHANE  ----------
+(Générer un UUID our rendre le formulaire unique + rendre ce UUID TOKEN et COMPARER)
+function generateUUID() {
+    return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+        mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+        mt_rand(0, 0xffff),
+        mt_rand(0, 0x0fff) | 0x4000,
+        mt_rand(0, 0x3fff) | 0x8000,
+        mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+    );
+}
+
+echo generateUUID(); // Ex: 550e8400-e29b-41d4-a716-446655440000
+
+
+---------------------------
+
+
+
+<script>
+// Vérifier le token avant d'envoyer via fetch ou AJAX
+const token = document.querySelector('[name="csrf_token"]').value;
+fetch('/api/action', {
+    method: 'POST',
+    headers: { 'X-CSRF-Token': token },
+    body: formData
+});
+</script></code></pre>
+        </div>
+
+        <div class="section" id="exemples">
+            <h2><span class="section-number">7</span> 🧪 Exemples Concrets de Code Sécurisé</h2>
+
+            <h3>Exemple 1 : Formulaire de Contact Sécurisé (PHP + HTML)</h3>
+            <pre><code><form method="POST">
+    <input type="text" name="nom" required>
+    <input type="email" name="email" required>
+    <textarea name="message" required></textarea>
+    <button type="submit">Envoyer</button>
+</form>
+
+<?php
+if ($_POST) {
+    $nom = htmlspecialchars(trim($_POST['nom']));
+    $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
+    $message = htmlspecialchars(trim($_POST['message']));
+
+    if ($email) {
+        // Enregistrer dans la base avec une requête préparée
+        $stmt = $pdo->prepare("INSERT INTO messages (nom, email, message) VALUES (?, ?, ?)");
+        $stmt->execute([$nom, $email, $message]);
+        echo "✅ Message envoyé !";
+    } else {
+        echo "❌ Email invalide.";
+    }
+}
+?></code></pre>
+
+            <h3>Exemple 2 : Gestion de Panier avec Validation (JavaScript)</h3>
+            <pre><code>function ajouterAuPanier(idProduit) {
+    // Vérifier que l'ID est un nombre
+    if (isNaN(idProduit)) {
+        alert("ID de produit invalide.");
+        return;
+    }
+
+    fetch('/api/panier.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: idProduit })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("Produit ajouté au panier.");
+        } else {
+            alert("Erreur : " + data.message);
+        }
+    });
+}</code></pre>
+        </div>
+
+        <div class="section" id="exercices">
+            <h2><span class="section-number">8</span> 📝 Exercices Pratiques</h2>
+
+            <div class="exercise">
+                <h3>Exercice 1 : Formulaire d'inscription sécurisé</h3>
+                <p>Créez un formulaire PHP/HTML avec champs nom, email, mot de passe. Validez les données, hachez le mot de passe et enregistrez-les dans une base via une requête préparée.</p>
+            </div>
+
+            <div class="exercise">
+                <h3>Exercice 2 : Empêcher les attaques XSS</h3>
+                <p>Créez une page qui affiche une variable PHP dans une page HTML. Utilisez <b>htmlspecialchars()</b> pour empêcher les attaques XSS.</p>
+            </div>
+
+            <div class="exercise">
+                <h3>Exercice 3 : Validation de données côté client</h3>
+                <p>Utilisez JavaScript pour valider un email et une quantité positive dans un formulaire avant envoi.</p>
+            </div>
+
+            <div class="exercise">
+                <h3>Exercice 4 : Gestion de session</h3>
+                <p>Créez une page PHP qui vérifie si un utilisateur est connecté via une session. Redirigez-le vers la page de login s'il ne l'est pas.</p>
+            </div>
+
+            <div class="exercise">
+                <h3>Exercice 5 : Journalisation des erreurs</h3>
+                <p>Créez un script PHP qui enregistre les erreurs dans un fichier <b>log.txt</b> avec l'heure et la nature de l'erreur.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>©  Stéphane MONTET 2024 - Css Manager - Plateforme Éducative pour Étudiants</p>
+            <p>Maîtrisez la sécurité web pour des applications robustes et fiables !</p>
+        </footer>
+    </div>
+</body>
+</html>

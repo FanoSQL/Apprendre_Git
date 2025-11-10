@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sécurité des Dossiers Web | Css Manager</title>
+    <style>
+        /* --- CSS GLOBAL --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.7;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            overflow-x: auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+        }
+
+        .toc {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+
+        .toc h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin-bottom: 10px;
+        }
+
+        .toc a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toc a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+        .section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            border-left: 5px solid #764ba2;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-number {
+            background: #764ba2;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 25px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        code {
+            background: #2d2d2d;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+        }
+
+        .tip {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .tip strong {
+            color: #1565C0;
+        }
+
+        .warning {
+            background: #fff3e0;
+            border-left: 4px solid #FF9800;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .warning strong {
+            color: #E65100;
+        }
+
+        .note {
+            background: #e8f5e8;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .note strong {
+            color: #2E7D32;
+        }
+
+        .exercise {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .exercise h3 {
+            color: #ff9800;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px dashed #ccc;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .subtitle {
+                font-size: 1rem;
+            }
+            .toc {
+                padding: 15px;
+            }
+            .section {
+                padding: 20px;
+            }
+            pre {
+                font-size: 0.85rem;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔐 Sécurité des Dossiers Web</h1>
+            <p class="subtitle">Protégez vos fichiers et vos données sensibles</p>
+        </header>
+
+        <div class="toc">
+            <h2>📋 Sommaire</h2>
+            <ul>
+                <li><a href="#intro"><span class="section-number">1</span> Introduction</a></li>
+                <li><a href="#pourquoi"><span class="section-number">2</span> Pourquoi Protéger les Dossiers ?</a></li>
+                <li><a href="#risques"><span class="section-number">3</span> Risques Associés</a></li>
+                <li><a href="#bonnes-pratiques"><span class="section-number">4</span> Bonnes Pratiques de Sécurité</a></li>
+                <li><a href="#apache"><span class="section-number">5</span> Protection avec Apache (.htaccess)</a></li>
+                <li><a href="#php"><span class="section-number">6</span> Protection avec PHP</a></li>
+                <li><a href="#structure"><span class="section-number">7</span> Structure de Dossiers Recommandée</a></li>
+                <li><a href="#exercices"><span class="section-number">8</span> Exercices Pratiques</a></li>
+            </ul>
+        </div>
+
+        <div class="section" id="intro">
+            <h2><span class="section-number">1</span> 📘 Introduction</h2>
+            <p>La sécurité d'une application web ne se limite pas au code PHP ou aux requêtes SQL. Elle inclut aussi la **protection des dossiers et des fichiers** stockés sur le serveur.</p>
+            <p>Si un dossier ou un fichier sensible est accessible publiquement, un attaquant peut :</p>
+            <ul>
+                <li>Lire vos **fichiers de configuration** (contenant des mots de passe).</li>
+                <li>Télécharger des **documents confidentiels** (listes de clients, factures).</li>
+                <li>Exécuter des **scripts malveillants** téléchargés.</li>
+            </ul>
+            <div class="tip">
+                <strong>💡 Objectif :</strong> Apprendre à protéger les dossiers et les fichiers sensibles de votre application web.
+            </div>
+        </div>
+
+        <div class="section" id="pourquoi">
+            <h2><span class="section-number">2</span> 🧠 Pourquoi Protéger les Dossiers ?</h2>
+            <p>Les dossiers de votre application contiennent souvent des ressources critiques :</p>
+            <ul>
+                <li><strong>Fichiers de configuration</strong> : <b>config.php</b>, <b>.env</b>, <b>database.ini</b> (contiennent des mots de passe).</li>
+                <li><strong>Fichiers de données</strong> : <b>.sql</b>, <b>.json</b>, <b>.csv</b> (contenant des données sensibles).</li>
+                <li><strong>Fichiers d'upload</strong> : <b>upload/</b>, <b>photos_clients/</b>, <b>cv/</b> (doivent être gérés avec soin).</li>
+                <li><strong>Fichiers de logs</strong> : <b>logs/error.log</b> (contiennent des traces d'erreurs ou de requêtes).</li>
+            </ul>
+            <div class="warning">
+                <strong>⚠️ Risque :</strong> Si ces dossiers ne sont pas protégés, les attaquants peuvent accéder à des données confidentielles ou exploiter des failles.
+            </div>
+        </div>
+
+        <div class="section" id="risques">
+            <h2><span class="section-number">3</span> 🚨 Risques Associés</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Risque</th>
+                        <th>Description</th>
+                        <th>Exemple de Fichier/Dossier</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Vol de mots de passe</td>
+                        <td>Accès à un fichier de configuration contenant des identifiants de base de données.</td>
+                        <td><b>config/database.php</b></td>
+                    </tr>
+                    <tr>
+                        <td>Exposition de données sensibles</td>
+                        <td>Téléchargement d'une base de données brute ou d'une liste de clients.</td>
+                        <td><b>data/backup.sql</b>, <b>documents/liste_clients.csv</b></td>
+                    </tr>
+                    <tr>
+                        <td>Injection de code malveillant</td>
+                        <td>Un attaquant télécharge un script PHP dans un dossier d'upload et l'exécute.</td>
+                        <td><b>upload/</b> (si non sécurisé)</td>
+                    </tr>
+                    <tr>
+                        <td>Divulgation d'erreurs système</td>
+                        <td>Accès aux logs peut révéler des détails techniques.</td>
+                        <td><b>logs/error.log</b></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section" id="bonnes-pratiques">
+            <h2><span class="section-number">4</span> ✅ Bonnes Pratiques de Sécurité</h2>
+            <ul>
+                <li><strong>Ne placez jamais de fichiers sensibles dans le dossier racine web</strong> (ex: `www`, `htdocs`).</li>
+                <li><strong>Utilisez des dossiers en dehors de la racine web</strong> pour les configurations ou les sauvegardes.</li>
+                <li><strong>Restreignez l'accès aux dossiers critiques</strong> via des règles de serveur ou du code PHP.</li>
+                <li><strong>Validez et filtrez les fichiers téléchargés</strong> (type MIME, extension, taille).</li>
+                <li><strong>Désactivez le listing des fichiers</strong> dans les dossiers non protégés.</li>
+                <li><strong>Utilisez des noms de dossiers non évidents</strong> pour les zones sensibles (ex: `private_data` au lieu de `backup`).</li>
+            </ul>
+        </div>
+
+        <div class="section" id="apache">
+            <h2><span class="section-number">5</span> 🔧 Protection avec Apache (.htaccess)</h2>
+            <p>Sur les serveurs Apache, vous pouvez utiliser un fichier <b>.htaccess</b> pour bloquer l'accès à un dossier ou à certains types de fichiers.</p>
+
+            <h3>Exemple 1 : Bloquer l'accès à un dossier entier</h3>
+            <p>Créez un fichier nommé <b>.htaccess</b> dans le dossier que vous voulez protéger (ex: `config/` ou `data/`).</p>
+            <pre><code># .htaccess
+# Bloquer l'accès à tous les fichiers du dossier
+Order Deny,Allow
+Deny from all</code></pre>
+
+            <h3>Exemple 2 : Bloquer l'accès à des types de fichiers spécifiques</h3>
+            <pre><code># .htaccess
+# Bloquer l'accès aux fichiers .env et .sql
+<Files "*.env">
+    Order Deny,Allow
+    Deny from all
+</Files>
+
+<Files "*.sql">
+    Order Deny,Allow
+    Deny from all
+</Files></code></pre>
+
+            <h3>Exemple 3 : Désactiver le listing des fichiers</h3>
+            <pre><code># .htaccess
+# Désactiver l'affichage de la liste des fichiers
+Options -Indexes</code></pre>
+
+            <div class="note">
+                <strong>✅ Astuce :</strong> Le fichier <b>.htaccess</b> s'applique au **dossier où il est placé** et à **tous ses sous-dossiers**.
+            </div>
+        </div>
+
+        <div class="section" id="php">
+            <h2><span class="section-number">6</span> 🔐 Protection avec PHP</h2>
+            <p>Vous pouvez aussi gérer l'accès aux fichiers via du code PHP.</p>
+
+            <h3>Exemple 1 : Servir un fichier privé en fonction de l'utilisateur connecté</h3>
+            <pre><code>< ? php
+session_start();
+
+// Vérifier si l'utilisateur est connecté et autorisé
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+    die("Accès refusé.");
+}
+
+// Récupérer le nom du fichier demandé
+$filename = $_GET['f'] ?? '';
+if (empty($filename)) {
+    die("Fichier non spécifié.");
+}
+
+// Sécurité : Empêcher la traversée de dossiers (ex: ../../config.php)
+$filename = basename($filename);
+
+// Chemin vers le fichier dans un dossier privé
+$filePath = __DIR__ . '/private_documents/' . $filename;
+
+// Vérifier que le fichier existe et est dans le bon dossier
+if (!file_exists($filePath) || strpos(realpath($filePath), realpath(__DIR__ . '/private_documents/')) !== 0) {
+    die("Fichier non trouvé ou non autorisé.");
+}
+
+// Envoyer le fichier au navigateur
+header('Content-Type: application/octet-stream');
+header('Content-Disposition: attachment; filename="' . basename($filePath) . '"');
+readfile($filePath);
+exit;
+? ></code></pre>
+
+            <h3>Exemple 2 : Valider un téléchargement de fichier via formulaire</h3>
+            <pre><code>< ? php
+if ($_POST && isset($_FILES['fichier'])) {
+    $file = $_FILES['fichier'];
+    $uploadDir = 'uploads/';
+    $allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+
+    if ($file['error'] === UPLOAD_ERR_OK) {
+        $fileType = mime_content_type($file['tmp_name']);
+        $fileExtension = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+
+        if (in_array($fileType, $allowedTypes) && $fileExtension !== 'php') {
+            $destination = $uploadDir . basename($file['name']);
+            if (move_uploaded_file($file['tmp_name'], $destination)) {
+                echo "✅ Fichier téléchargé avec succès.";
+            } else {
+                echo "❌ Erreur lors du déplacement du fichier.";
+            }
+        } else {
+            echo "❌ Type de fichier non autorisé ou danger (PHP).";
+        }
+    } else {
+        echo "❌ Erreur de téléchargement.";
+    }
+}
+? ></code></pre>
+
+            <div class="tip">
+                <strong>💡 Astuce :</strong> Utilisez <b>basename()</b> pour empêcher les attaques de type "traversée de dossiers".
+            </div>
+        </div>
+
+        <div class="section" id="structure">
+            <h2><span class="section-number">7</span> 🏗️ Structure de Dossiers Recommandée</h2>
+            <p>Voici une structure de projet qui sépare les fichiers sensibles du dossier accessible publiquement.</p>
+            <pre><code>/mon_projet/
+│
+├── public/                 # Contenu accessible via le web (index.php, assets, uploads)
+│   ├── index.php
+│   ├── assets/
+│   │   ├── css/
+│   │   ├── js/
+│   │   └── images/
+│   └── uploads/            # Fichiers uploadés (à sécuriser)
+│       ├── photos_clients/
+│       └── documents/
+│
+├── private/                # Contenu non accessible via le web
+│   ├── config/
+│   │   └── db.php          # Fichier de configuration (mots de passe, etc.)
+│   ├── logs/
+│   │   └── error.log
+│   ├── data/
+│   │   └── backup.sql
+│   └── includes/
+│       └── functions.php
+│
+└── vendor/                 # Dépendances (ex: Composer)</code></pre>
+            <p>Dans cette structure, seul le dossier <b>public/</b> est exposé à l'URL racine du serveur web.</p>
+        </div>
+
+        <div class="section" id="exercices">
+            <h2><span class="section-number">8</span> 📝 Exercices Pratiques</h2>
+
+            <div class="exercise">
+                <h3>Exercice 1 : Créer un .htaccess de sécurité</h3>
+                <p>Créez un dossier <b>config</b> dans votre projet et placez-y un fichier <b>.htaccess</b> pour empêcher l'accès à tous les fichiers du dossier.</p>
+            </div>
+
+            <div class="exercise">
+                <h3>Exercice 2 : Servir un fichier privé avec PHP</h3>
+                <p>Créez un script PHP (<b>download.php</b>) qui vérifie si l'utilisateur est connecté avant de servir un fichier PDF depuis un dossier privé.</p>
+            </div>
+
+            <div class="exercise">
+                <h3>Exercice 3 : Valider un fichier uploadé</h3>
+                <p>Créez un formulaire d'upload et un script PHP qui vérifie le type MIME et l'extension du fichier. Refusez les fichiers PHP ou exécutables.</p>
+            </div>
+
+            <div class="exercise">
+                <h3>Exercice 4 : Désactiver le listing des fichiers</h3>
+                <p>Ajoutez la directive <b>Options -Indexes</b> dans un fichier <b>.htaccess</b> à la racine de votre dossier d'uploads. Vérifiez que vous ne pouvez plus voir la liste des fichiers.</p>
+            </div>
+
+            <div class="exercise">
+                <h3>Exercice 5 : Protéger un dossier de sauvegarde</h3>
+                <p>Créez un dossier <b>backup</b> dans votre projet et protégez-le avec un <b>.htaccess</b> qui interdit l'accès.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>© Stéphane MONTET 2024 - Css Manager - Plateforme Éducative pour Étudiants</p>
+            <p>Sécurisez vos applications web dès la conception !</p>
+        </footer>
+    </div>
+</body>
+</html>

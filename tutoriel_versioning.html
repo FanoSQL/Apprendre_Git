@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outils de Versioning | Css Manager</title>
+    <style>
+        /* --- CSS GLOBAL --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.7;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            overflow-x: auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+        }
+
+        .toc {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+
+        .toc h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin-bottom: 10px;
+        }
+
+        .toc a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toc a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+        .section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            border-left: 5px solid #764ba2;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-number {
+            background: #764ba2;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        code {
+            background: #2d2d2d;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+        }
+
+        .tip {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .tip strong {
+            color: #1565C0;
+        }
+
+        .warning {
+            background: #fff3e0;
+            border-left: 4px solid #FF9800;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .warning strong {
+            color: #E65100;
+        }
+
+        .note {
+            background: #e8f5e8;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .note strong {
+            color: #2E7D32;
+        }
+
+        .exercise {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .exercise h3 {
+            color: #ff9800;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px dashed #ccc;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .subtitle {
+                font-size: 1rem;
+            }
+            .toc {
+                padding: 15px;
+            }
+            .section {
+                padding: 20px;
+            }
+            pre {
+                font-size: 0.85rem;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔧 Gérer le Versioning d'une Application</h1>
+            <p class="subtitle">PHP, Node.js, C++, C# - Outils et Bonnes Pratiques</p>
+        </header>
+
+        <div class="toc">
+            <h2>📋 Sommaire</h2>
+            <ul>
+                <li><a href="#intro"><span class="section-number">1</span> Introduction au Versioning</a></li>
+                <li><a href="#outils"><span class="section-number">2</span> Outils de Versioning</a></li>
+                <li><a href="#php"><span class="section-number">3</span> Versioning d'une Application PHP</a></li>
+                <li><a href="#nodejs"><span class="section-number">4</span> Versioning d'une Application Node.js</a></li>
+                <li><a href="#cpp"><span class="section-number">5</span> Versioning d'une Application C++</a></li>
+                <li><a href="#csharp"><span class="section-number">6</span> Versioning d'une Application C#</a></li>
+                <li><a href="#conclusion"><span class="section-number">7</span> Conclusion</a></li>
+                <li><a href="#exercices"><span class="section-number">8</span> Exercices Pratiques</a></li>
+            </ul>
+        </div>
+
+        <div class="section" id="intro">
+            <h2><span class="section-number">1</span> 📘 Introduction au Versioning</h2>
+            <p>Le <strong>versioning</strong> (ou <strong>gestion de version</strong>) est le processus de suivi et de gestion des modifications apportées à un logiciel ou à un projet. Cela permet de :</p>
+            <ul>
+                <li>Suivre l'<strong>évolution</strong> du code source.</li>
+                <li>Revenir à une <strong>version antérieure</strong> en cas de problème.</li>
+                <li>Travailler en <strong>équipe</strong> sans écraser le travail des autres.</li>
+                <li>Créer des <strong>releases</strong> (versions stables).</li>
+            </ul>
+
+            <div class="tip">
+                <strong>💡 Outil le plus populaire :</strong> <b>Git</b> est le système de versioning le plus utilisé dans l'industrie du développement logiciel.
+            </div>
+        </div>
+
+        <div class="section" id="outils">
+            <h2><span class="section-number">2</span> 🔧 Outils de Versioning</h2>
+            <p>Voici les outils les plus courants pour gérer le versioning :</p>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Outil</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Git</strong></td>
+                        <td>Système de versioning distribué</td>
+                        <td>Le plus populaire. Fonctionne localement et peut être synchronisé avec des serveurs distants (GitHub, GitLab, Bitbucket).</td>
+                    </tr>
+                    <tr>
+                        <td><strong>SVN (Subversion)</strong></td>
+                        <td>Système de versioning centralisé</td>
+                        <td>Moins populaire que Git, mais encore utilisé dans certains environnements.</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mercurial</strong></td>
+                        <td>Système de versioning distribué</td>
+                        <td>Alternative à Git, mais moins répandue.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="note">
+                <strong>✅ Recommandation :</strong> <b>Git</b> est le standard de facto. Il est essentiel de le maîtriser.
+            </div>
+        </div>
+
+        <div class="section" id="php">
+            <h2><span class="section-number">3</span> 🐘 Versioning d'une Application PHP</h2>
+            <p>Pour une application PHP, <b>Git</b> est l'outil de choix. Voici comment procéder :</p>
+
+            <h3>1. Initialiser un dépôt Git</h3>
+            <pre><code>cd /chemin/vers/votre/application_php
+git init</code></pre>
+
+            <h3>2. Créer un fichier `.gitignore`</h3>
+            <p>Ce fichier permet d'exclure certains fichiers/dossiers du versioning (ex: fichiers de log, uploads temporaires, `vendor/` de Composer).</p>
+            <pre><code># Fichiers de configuration sensibles
+config/db.php
+.env
+# Dossiers de cache
+cache/
+logs/
+# Dossiers d'uploads
+uploads/
+# Dépendances PHP (si gérées avec Composer)
+vendor/
+# Fichiers temporaires
+*.tmp
+*.log</code></pre>
+
+            <h3>3. Premier commit</h3>
+            <pre><code>git add .
+git commit -m "Initial commit - Structure de base de l'application PHP"</code></pre>
+
+            <h3>4. Connecter à un dépôt distant (ex: GitHub)</h3>
+            <pre><code>git remote add origin https://github.com/votre_compte/votre_repo_php.git
+git branch -M main
+git push -u origin main</code></pre>
+
+            <div class="tip">
+                <strong>💡 Astuce :</strong> Si vous utilisez des dépendances PHP (ex: Composer), veillez à ne pas les pousser sur GitHub. Le fichier <b>composer.lock</b> est utile, mais pas <b>vendor/</b>.
+            </div>
+        </div>
+
+        <div class="section" id="nodejs">
+            <h2><span class="section-number">4</span> 🟢 Versioning d'une Application Node.js</h2>
+            <p>Les applications Node.js utilisent <b>Git</b> de la même manière que PHP, mais avec quelques spécificités :</p>
+
+            <h3>1. Initialiser un dépôt Git</h3>
+            <pre><code>cd /chemin/vers/votre/application_nodejs
+git init</code></pre>
+
+            <h3>2. Fichier `.gitignore` pour Node.js</h3>
+            <pre><code>node_modules/
+.env
+npm-debug.log*
+coverage/
+.nyc_output/
+dist/
+*.log</code></pre>
+
+            <h3>3. Premier commit</h3>
+            <pre><code>git add .
+git commit -m "Initial commit - Projet Node.js avec Express"</code></pre>
+
+            <h3>4. Connecter à un dépôt distant</h3>
+            <pre><code>git remote add origin https://github.com/votre_compte/votre_repo_nodejs.git
+git branch -M main
+git push -u origin main</code></pre>
+
+            <div class="note">
+                <strong>✅ Important :</strong> <b>node_modules/</b> (dossier des dépendances) est <strong>toujours exclu</strong> du versioning. Les autres développeurs utilisent <b>npm install</b> pour les installer.
+            </div>
+        </div>
+
+        <div class="section" id="cpp">
+            <h2><span class="section-number">5</span> 🟦 Versioning d'une Application C++</h2>
+            <p>Les applications C++ utilisent également <b>Git</b> pour gérer le code source :</p>
+
+            <h3>1. Initialiser un dépôt Git</h3>
+            <pre><code>cd /chemin/vers/votre/application_cpp
+git init</code></pre>
+
+            <h3>2. Fichier `.gitignore` pour C++</h3>
+            <pre><code># Fichiers objets
+*.o
+*.obj
+# Exécutables
+*.exe
+*.out
+# Dossiers de build
+build/
+Debug/
+Release/
+# Fichiers temporaires de l'IDE
+.vs/
+.idea/
+*.swp
+*.swo</code></pre>
+
+            <h3>3. Premier commit</h3>
+            <pre><code>git add .
+git commit -m "Initial commit - Projet C++ avec Makefile"</code></pre>
+
+            <h3>4. Connecter à un dépôt distant</h3>
+            <pre><code>git remote add origin https://github.com/votre_compte/votre_repo_cpp.git
+git branch -M main
+git push -u origin main</code></pre>
+
+            <div class="warning">
+                <strong>⚠️ Attention :</strong> Ne pas versionner les fichiers compilés (<b>.exe</b>, <b>.o</b>, etc.) ni les fichiers temporaires de l'IDE.
+            </div>
+        </div>
+
+        <div class="section" id="csharp">
+            <h2><span class="section-number">6</span> 🔵 Versioning d'une Application C#</h2>
+            <p>Les projets C# (ex: avec .NET) utilisent <b>Git</b> avec des spécificités Microsoft :</p>
+
+            <h3>1. Initialiser un dépôt Git</h3>
+            <pre><code>cd /chemin/vers/votre/application_csharp
+git init</code></pre>
+
+            <h3>2. Fichier `.gitignore` pour C# (.NET)</h3>
+            <pre><code># Fichiers binaires et objets
+bin/
+obj/
+# Fichiers de configuration utilisateur
+*.user
+*.suo
+.vs/
+# Fichiers de build
+*.dll
+*.exe
+*.pdb
+*.nupkg
+# Dossiers de packages NuGet
+packages/
+# Fichiers temporaires
+*.tmp
+*.log</code></pre>
+
+            <h3>3. Premier commit</h3>
+            <pre><code>git add .
+git commit -m "Initial commit - Projet C# avec ASP.NET Core"</code></pre>
+
+            <h3>4. Connecter à un dépôt distant</h3>
+            <pre><code>git remote add origin https://github.com/votre_compte/votre_repo_csharp.git
+git branch -M main
+git push -u origin main</code></pre>
+
+            <div class="tip">
+                <strong>💡 Astuce :</strong> Utilisez <a href="https://github.com/github/gitignore/blob/main/VisualStudio.gitignore" target="_blank">ce modèle de .gitignore pour Visual Studio</a> pour des projets C#/.NET.
+            </div>
+        </div>
+
+        <div class="section" id="conclusion">
+            <h2><span class="section-number">7</span> 🎯 Conclusion</h2>
+            <p><strong>Git</strong> est l'outil universel pour gérer le versioning de vos projets, qu'ils soient écrits en <strong>PHP, Node.js, C++, C# ou tout autre langage</strong>.</p>
+            <ul>
+                <li>Il est <strong>indispensable</strong> pour tout développeur moderne.</li>
+                <li>Il permet de <strong>collaborer efficacement</strong> et de <strong>maintenir un historique</strong> de votre code.</li>
+                <li>Chaque langage ou framework a ses <strong>fichiers à ignorer</strong> via <b>.gitignore</b>.</li>
+                <li>Des plateformes comme <strong>GitHub, GitLab, Bitbucket</strong> permettent de <strong>héberger</strong> vos dépôts.</li>
+            </ul>
+        </div>
+
+        <div class="section" id="exercices">
+            <h2><span class="section-number">8</span> 📝 Exercices Pratiques</h2>
+
+            <div class="exercise">
+                <h3>Exercice 1 : Initialiser un dépôt Git pour votre projet PHP</h3>
+                <p>Allez dans le dossier de votre application PHP, initialisez un dépôt Git, créez un fichier `.gitignore`, et faites votre premier commit.</p>
+            </div>
+
+            <div class="exercise">
+                <h3>Exercice 2 : Créer un dépôt distant sur GitHub</h3>
+                <p>Sur github.com, créez un nouveau dépôt vide et liez-y votre projet local avec <b>git remote add</b> et <b>git push</b>.</p>
+            </div>
+
+            <div class="exercise">
+                <h3>Exercice 3 : Modifier un fichier et faire un nouveau commit</h3>
+                <p>Changez un fichier de votre projet, ajoutez-le à la zone de staging avec <b>git add</b>, puis commitez avec <b>git commit</b>.</p>
+            </div>
+
+            <div class="exercise">
+                <h3>Exercice 4 : Utiliser des branches</h3>
+                <p>Créez une nouvelle branche nommée <b>develop</b>, basculez-y, faites-y une modification, puis fusionnez-la avec la branche <b>main</b>.</p>
+                <pre><code>git checkout -b develop
+# (Faire une modification)
+git add .
+git commit -m "Nouvelle fonctionnalité"
+git checkout main
+git merge develop</code></pre>
+            </div>
+
+            <div class="exercise">
+                <h3>Exercice 5 : Générer un fichier `.gitignore` pour votre projet Node.js</h3>
+                <p>Créez un fichier `.gitignore` approprié pour votre projet Node.js en utilisant les règles vues dans ce tutoriel.</p>
+            </div>
+        </div>
+
+        <footer>
+            <p>©  Stéphane MONTET 2024 - Css Manager - Plateforme Éducative pour Étudiants</p>
+            <p>Maîtrisez Git pour gérer efficacement vos projets de développement !</p>
+        </footer>
+    </div>
+</body>
+</html>

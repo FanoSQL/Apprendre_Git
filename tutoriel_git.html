@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apprendre Git - Créer un Compte, Installer, Exercice | Css Manager</title>
+    <style>
+        /* --- CSS GLOBAL --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.7;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            overflow-x: auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+        }
+
+        .toc {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+
+        .toc h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin-bottom: 10px;
+        }
+
+        .toc a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .toc a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+        .section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 40px;
+            border-left: 5px solid #764ba2;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-number {
+            background: #764ba2;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 25px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        code {
+            background: #2d2d2d;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+        }
+
+        .tip {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .tip strong {
+            color: #1565C0;
+        }
+
+        .warning {
+            background: #fff3e0;
+            border-left: 4px solid #FF9800;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .warning strong {
+            color: #E65100;
+        }
+
+        .note {
+            background: #e8f5e8;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .note strong {
+            color: #2E7D32;
+        }
+
+        .exercise {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+        }
+
+        .exercise h3 {
+            color: #ff9800;
+            margin-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px dashed #ccc;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            h1 {
+                font-size: 2rem;
+            }
+            .subtitle {
+                font-size: 1rem;
+            }
+            .toc {
+                padding: 15px;
+            }
+            .section {
+                padding: 20px;
+            }
+            pre {
+                font-size: 0.85rem;
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🐙 Apprendre Git</h1>
+            <p class="subtitle">Créer un compte, installer Git, et tester avec un exercice</p>
+        </header>
+
+        <div class="toc">
+            <h2>📋 Sommaire</h2>
+            <ul>
+                <li><a href="#intro"><span class="section-number">1</span> Introduction à Git</a></li>
+                <li><a href="#github"><span class="section-number">2</span> Créer un Compte GitHub</a></li>
+                <li><a href="#install-win"><span class="section-number">3</span> Installer Git sur Windows</a></li>
+                <li><a href="#install-mac"><span class="section-number">4</span> Installer Git sur Mac</a></li>
+                <li><a href="#install-linux"><span class="section-number">5</span> Installer Git sur Debian/Ubuntu</a></li>
+                <li><a href="#exercice"><span class="section-number">6</span> Exercice Pratique : Envoyer une Page sur GitHub</a></li>
+            </ul>
+        </div>
+
+        <div class="section" id="intro">
+            <h2><span class="section-number">1</span> 📘 Introduction à Git</h2>
+            <p><strong>Git</strong> est un système de <strong>gestion de version décentralisé</strong>. Il permet de :</p>
+            <ul>
+                <li>Suivre <strong>l'historique des modifications</strong> d'un projet.</li>
+                <li>Travailler <strong>en équipe</strong> sans écraser le travail des autres.</li>
+                <li>Créer des <strong>branches</strong> pour expérimenter sans toucher au code principal.</li>
+                <li>Revenir en arrière facilement si une erreur est introduite.</li>
+            </ul>
+            <p><strong>GitHub</strong> est une plateforme populaire qui <strong>héberge des projets Git</strong> (des "repositories" ou "repos").</p>
+
+            <div class="tip">
+                <strong>💡 Pourquoi l'apprendre ?</strong> Git est un outil <strong>indispensable</strong> pour tout développeur moderne. Il est <strong>requis</strong> dans la majorité des emplois de développement.
+            </div>
+        </div>
+
+        <div class="section" id="github">
+            <h2><span class="section-number">2</span> 🧑‍💻 Créer un Compte GitHub</h2>
+            <p>GitHub est le service le plus populaire pour héberger des projets Git. Voici comment créer un compte gratuit.</p>
+
+            <h3>Étapes :</h3>
+            <ol>
+                <li>Allez sur le site officiel : <a href="https://github.com/" target="_blank">https://github.com/</a></li>
+                <li>Cliquez sur le bouton <strong>"Sign up"</strong> en haut à droite.</li>
+                <li>Entrez un <strong>nom d'utilisateur</strong> (ex: `votre_nom_votre_prenom_2025`), un <strong>email</strong> et un <strong>mot de passe</strong>.</li>
+                <li>Validez votre email (un lien vous sera envoyé).</li>
+                <li>Configurez votre compte (optionnel).</li>
+                <li>Voilà, vous avez un compte GitHub !</li>
+            </ol>
+
+            <div class="note">
+                <strong>✅ Astuce :</strong> Choisissez un nom d'utilisateur <strong>propre et professionnel</strong> (sans caractères spéciaux, espaces, etc.).
+            </div>
+        </div>
+
+        <div class="section" id="install-win">
+            <h2><span class="section-number">3</span> 🪟 Installer Git sur Windows</h2>
+            <p>Le moyen le plus simple est d'utiliser le <strong>programme d'installation officiel</strong>.</p>
+
+            <h3>Étapes :</h3>
+            <ol>
+                <li>Téléchargez Git depuis : <a href="https://git-scm.com/download/win" target="_blank">https://git-scm.com/download/win</a></li>
+                <li>Exécutez le fichier `.exe` téléchargé.</li>
+                <li>Suivez l'assistant d'installation. Les options par défaut conviennent généralement.</li>
+                <li>Lorsqu'on vous demande "Adjusting your PATH environment", choisissez "Git from the command line and also from 3rd-party software".</li>
+                <li>À la fin, vous pouvez lancer "Git Bash" (un terminal Git) ou utiliser "Git CMD".</li>
+            </ol>
+
+            <h3>Tester l'installation :</h3>
+            <p>Ouvrez <strong>Git Bash</strong> ou <strong>Invite de commandes</strong> et tapez :</p>
+            <pre><code>git --version</code></pre>
+            <p>Si Git est installé, vous verrez apparaître la version (ex: `git version 2.40.0.windows.1`).</p>
+
+            <div class="tip">
+                <strong>💡 Astuce :</strong> <strong>Git Bash</strong> est un terminal qui inclut Git et offre une interface plus similaire à Linux/macOS.
+            </div>
+        </div>
+
+        <div class="section" id="install-mac">
+            <h2><span class="section-number">4</span> 🍎 Installer Git sur Mac</h2>
+            <p>Sur Mac, Git est souvent déjà installé. Vérifiez d'abord :</p>
+
+            <pre><code>git --version</code></pre>
+            <p>Si vous voyez une version, Git est déjà là. Sinon, installez-le :</p>
+
+            <h3>Option 1 : Via Xcode Command Line Tools (Recommandé)</h3>
+            <p>Ouvrez le <strong>Terminal</strong> et tapez :</p>
+            <pre><code>xcode-select --install</code></pre>
+            <p>Cela installera Git ainsi que d'autres outils de développement.</p>
+
+            <h3>Option 2 : Via Homebrew</h3>
+            <p>Si vous avez <a href="https://brew.sh/" target="_blank">Homebrew</a> installé :</p>
+            <pre><code>brew install git</code></pre>
+
+            <h3>Tester l'installation :</h3>
+            <pre><code>git --version</code></pre>
+        </div>
+
+        <div class="section" id="install-linux">
+            <h2><span class="section-number">5</span> 🐧 Installer Git sur Debian/Ubuntu</h2>
+            <p>Utilisez le gestionnaire de paquets <code>apt</code>.</p>
+
+            <h3>Étapes :</h3>
+            <p>Ouvrez un <strong>Terminal</strong> et tapez :</p>
+            <pre><code>sudo apt update
+sudo apt install git</code></pre>
+
+            <h3>Tester l'installation :</h3>
+            <pre><code>git --version</code></pre>
+        </div>
+
+        <div class="section" id="exercice">
+            <h2><span class="section-number">6</span> 📝 Exercice Pratique : Envoyer une Page HTML sur GitHub</h2>
+            <p>Cet exercice vous permet de tester votre installation de Git et de créer votre premier repository sur GitHub.</p>
+
+            <h3>1. Créer un Repository sur GitHub</h3>
+            <ol>
+                <li>Connectez-vous à votre compte GitHub.</li>
+                <li>Cliquez sur le bouton <strong>"+"</strong> en haut à droite, puis <strong>"New repository"</strong>.</li>
+                <li>Donnez un nom à votre repo (ex: `mon-premier-site`).</li>
+                <li>Cochez <strong>"Initialize this repository with a README"</strong>.</li>
+                <li>Cliquez sur <strong>"Create repository"</strong>.</li>
+            </ol>
+
+            <h3>2. Cloner le Repository Localement</h3>
+            <p>Sur la page de votre nouveau repository GitHub, cliquez sur le bouton vert <strong>"Code"</strong>, copiez l'URL HTTPS, puis dans votre terminal :</p>
+            <pre><code>git clone https://github.com/VOTRE_NOM_UTILISATEUR/mon-premier-site.git</code></pre>
+            <p>Entrez dans le dossier du projet :</p>
+            <pre><code>cd mon-premier-site</code></pre>
+
+            <h3>3. Créer un Fichier HTML Simple</h3>
+            <p>Créez un fichier `index.html` dans le dossier avec un éditeur de texte (ex: VS Code, Notepad++). Collez-y ce contenu :</p>
+            <pre><code><!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mon Premier Site</title>
+</head>
+<body>
+    <h1>Bonjour depuis Git !</h1>
+    <p>Ceci est ma première page envoyée via Git.</p>
+</body>
+</html></code></pre>
+
+            <h3>4. Ajouter, Commiter et Pousser les Modifications</h3>
+            <p>Retournez dans votre terminal (dans le dossier `mon-premier-site`) :</p>
+            <pre><code>git add index.html  # Ajouter le fichier à la zone de staging</code></pre>
+            <pre><code>git add .  # OU ajouter tous les fichiers modifiés/nouveaux</code></pre>
+            <pre><code>git commit -m "Ajout de la page d'accueil index.html"</code></pre>
+            <pre><code>git push origin main  # Pousser les modifications sur GitHub</code></pre>
+
+            <h3>5. Vérifier sur GitHub</h3>
+            <p>Revenez sur la page de votre repository GitHub. Vous devriez voir le fichier `index.html` apparaître.</p>
+
+            <div class="note">
+                <strong>✅ Astuce :</strong> Pour que votre page soit accessible en ligne via GitHub Pages, allez dans <strong>Settings > Pages</strong> de votre repository et sélectionnez la branche <b>main</b> comme source.
+            </div>
+
+            <div class="tip">
+                <strong>💡 Résumé des commandes :</strong>
+                <ul>
+                    <li><b>git clone URL_DU_REPO</b> : Télécharger un repository.</li>
+                    <li><b>git add NOM_DU_FICHIER</b> : Ajouter un fichier à la prochaine sauvegarde.</li>
+                    <li><b>git commit -m "Message"</b> : Sauvegarder les modifications locales.</li>
+                    <li><b>git push origin main</b> : Envoyer les modifications sur GitHub.</li>
+                </ul>
+            </div>
+        </div>
+
+        <footer>
+            <p>© Stéphane MONTET 2024 - Css Manager - Plateforme Éducative pour Étudiants</p>
+            <p>Maîtrisez Git pour collaborer efficacement sur vos projets !</p>
+        </footer>
+    </div>
+</body>
+</html>
